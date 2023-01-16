@@ -1,0 +1,25 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pgbench-data
+  labels:
+    app: postgres #this label is referenced in the autopilot rule
+spec:
+  storageClassName: sc-ap-student1 # Be sure to change this to your storage class
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pgbench-state
+spec:
+  storageClassName: sc-ap-student1 # Be sure to change this to your storage class
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

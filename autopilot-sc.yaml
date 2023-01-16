@@ -1,0 +1,9 @@
+##### Portworx storage class
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: sc-ap-student1 #Be sure change this name!
+provisioner: kubernetes.io/portworx-volume
+parameters:
+  repl: "2"
+allowVolumeExpansion: true
