@@ -1,0 +1,35 @@
+apiVersion: stork.libopenstorage.org/v1alpha1
+kind: ClusterPair
+metadata:
+  creationTimestamp: null
+  name: cluster02
+  namespace: student1
+spec:
+  config:
+    clusters:
+      k02:
+        LocationOfOrigin: /home/ccrow/.kube/config
+        certificate-authority-data: ***********
+        server: https://ccrow-uswe-ccrow-uswest-rg-536a0a-26f109c6.hcp.westus.azmk8s.io:443
+    contexts:
+      cluster02:
+        LocationOfOrigin: /home/ccrow/.kube/config
+        cluster: k02
+        user: u02
+    current-context: cluster02
+    preferences: {}
+    users:
+      u02:
+        LocationOfOrigin: /home/ccrow/.kube/config
+        client-certificate-data: ************
+        client-key-data: ************
+        token: ****************
+  options: #the following fields must be updated
+    ip: "20.245.3.168"
+    port: "9001"
+    token: "603314f2151b7f6a0611057d0b6e0ed4185157d7b945e2d8c35caecf1a987e6dff5134c6ad69f09996da0a0ca1c8e93e25bbe0e10cb67d2e75faeb44c1f14851"
+  platformOptions: {}
+status:
+  remoteStorageId: ""
+  schedulerStatus: ""
+  storageStatus: ""
