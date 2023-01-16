@@ -53,7 +53,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: heimdall-service    # < name of the service
-  namespace: heimdall       # < namespace where place the deployment and pods
 spec:
   selector:
     app: heimdall           # < reference to the deployment (connects with this deployment)
@@ -70,7 +69,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: heimdall-pvc        # < name of the persistent volume claim ("pvc'")
-  namespace: heimdall       # < namespace where place the pvc
 spec:
   storageClassName: "px-db" 
   accessModes:
