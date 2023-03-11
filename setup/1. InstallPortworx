@@ -1,0 +1,8 @@
+kubectl config use-context cluster01
+kubectl apply -f 'https://install.portworx.com/2.13?comp=pxoperator&kbver=1.24.9&ns=portworx'
+kubectl apply -f ~/git/pxworkshops/setup/AKS01-PXcluster01.yaml
+
+kubectl config use-context cluster02
+kubectl apply -f 'https://install.portworx.com/2.13?comp=pxoperator&kbver=1.24.9&ns=portworx'
+kubectl apply -f ~/git/pxworkshops/setup/AKS02-PXcluster02.yaml
+

@@ -1,0 +1,26 @@
+
+kubectl config use-context cluster02
+pxctl status | grep UUID | awk '{print $3}'
+mc mb mc mb miniok8s/<UUID>
+
+pxctl credentials create --provider s3 --s3-access-key workshop --s3-secret-key ********* --s3-region us-west-2 --s3-endpoint minio.ccrow.org --s3-storage-class STANDARD clusterPair_<UUID>
+
+kubectl config use-context cluster01
+pxctl credentials create --provider s3 --s3-access-key workshop --s3-secret-key ********* --s3-region us-west-2 --s3-endpoint minio.ccrow.org --s3-storage-class STANDARD clusterPair_<UUID>
+
+
+kubectl config use-context cluster02
+storkctl generate clusterpair -n portworx cluster02 > cluster02-migrationObject.yaml
+pxctl cluster token show
+k -n portworx get svc portworx-api
+
+#### Edit the file cluster02-migrationObject.yaml and add the following
+  options:
+    ip: "<svcEXTIP>"
+    port: "9001"
+    token: "<token>"
+
+
+
+kubectl config use-context cluster01
+kubectl apply -f ~/git/pxworkshops/setup/cluster02-migrationObject.yaml

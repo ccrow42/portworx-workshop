@@ -1,0 +1,32 @@
+# Ensure az is authenticated to aks
+~$ az aks create -g ccrow-uswest-rg -n ccrow-uswest-aks01 --enable-managed-identity -s standard_b4ms --generate-ssh-keys -c 5
+### Collect the node resource group: MC_ccrow-uswest-rg_ccrow-uswest-aks01_westus
+~$ az aks create -g ccrow-uswest-rg -n ccrow-uswest-aks02 --enable-managed-identity -s standard_b4ms --generate-ssh-keys -c 5
+### Collect the node resource group: MC_ccrow-uswest-rg_ccrow-uswest-aks02_westus
+### Connect to the clusters
+~$ az aks get-credentials --resource-group ccrow-uswest-rg --name ccrow-uswest-aks01
+~$ az aks get-credentials --resource-group ccrow-uswest-rg --name ccrow-uswest-aks02
+~$ az ad sp create-for-rbac --role=ccrow-portworx-cloud-drive --scopes="/subscriptions/536a0a78-c106-4cf1-b62f-f02d84260245/resourceGroups/MC_ccrow-uswest-rg_ccrow-uswest-aks01_westus"
+~$ az ad sp create-for-rbac --role=ccrow-portworx-cloud-drive --scopes="/subscriptions/536a0a78-c106-4cf1-b62f-f02d84260245/resourceGroups/MC_ccrow-uswest-rg_ccrow-uswest-aks02_westus"
+
+# Record the output of the above create-for-rbac commands, we will use the info to populate kubernetes secrets
+
+kubectl config rename-context ccrow-uswest-aks01 cluster01
+kubectl config rename-context ccrow-uswest-aks02 cluster02
+
+kubectl config use-context cluster01
+kubectl create ns portworx
+secret generic -n portworx px-azure --from-literal=AZURE_TENANT_ID=5a3d1859-f4b7-4151-beae-773895b989fd \
+                                                  	--from-literal=AZURE_CLIENT_ID=*****VALUEFROMABOVE******* \
+                                                  	--from-literal=AZURE_CLIENT_SECRET=*****VALUEFROMABOVE*******
+kubectl config view --minify=true --flatten=true > /home/shared/aks01.conf
+
+kubectl config use-context cluster02
+kubectl create ns portworx
+secret generic -n portworx px-azure --from-literal=AZURE_TENANT_ID=5a3d1859-f4b7-4151-beae-773895b989fd \
+                                                  	--from-literal=AZURE_CLIENT_ID=*****VALUEFROMABOVE******* \
+                                                  	--from-literal=AZURE_CLIENT_SECRET=*****VALUEFROMABOVE*******
+kubectl config view --minify=true --flatten=true > /home/shared/aks02.conf
+
+source /home/shared/setup.sh
+
