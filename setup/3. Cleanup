@@ -1,0 +1,5 @@
+# Delete AKS Clusters
+
+az aks delete -g ccrow-uswest-rg -n ccrow-uswest-aks01 --no-wait --yes&
+az aks delete -g ccrow-uswest-rg -n ccrow-uswest-aks02 --no-wait --yes&
+
