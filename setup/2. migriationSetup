@@ -1,7 +1,7 @@
 
 kubectl config use-context cluster02
 pxctl status | grep UUID | awk '{print $3}'
-mc mb mc mb miniok8s/<UUID>
+mc mb miniok8s/<UUID>
 
 pxctl credentials create --provider s3 --s3-access-key workshop --s3-secret-key ********* --s3-region us-west-2 --s3-endpoint minio.ccrow.org --s3-storage-class STANDARD clusterPair_<UUID>
 
