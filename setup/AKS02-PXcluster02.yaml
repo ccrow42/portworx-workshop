@@ -10,7 +10,7 @@ metadata:
     portworx.io/service-type: "portworx-api:LoadBalancer"
 
 spec:
-  image: portworx/oci-monitor:2.13.0
+  image: portworx/oci-monitor:2.13.5
   imagePullPolicy: Always
   kvdb:
     internal: true
