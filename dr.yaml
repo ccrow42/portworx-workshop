@@ -1,0 +1,32 @@
+# Failover Procedure:
+# https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/disaster-recovery/async-dr/failover-app
+apiVersion: stork.libopenstorage.org/v1alpha1
+kind: SchedulePolicy
+metadata:
+  name: hourly
+  namespace: portworx
+policy:
+  interval:
+    intervalMinutes: 60
+---
+apiVersion: stork.libopenstorage.org/v1alpha1
+kind: MigrationSchedule
+metadata:
+  name: heimdall-dr
+  namespace: portworx
+  annotations:
+    # Add the below annotations when PX-Security is enabled on both the clusters
+    #openstorage.io/auth-secret-namespace: <the namespace where the kubernetes secret holding the auth token resides>
+    #openstorage.io/auth-secret-name: <the name of the kubernetes secret which holds the auth token>
+spec:
+  template:
+    spec:
+      clusterPair: stage
+      includeResources: true
+      startApplications: false
+      includeVolumes: true
+      namespaces:
+      - heimdall
+  schedulePolicyName: hourly
+  suspend: false
+  autoSuspend: true

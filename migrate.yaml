@@ -1,10 +1,10 @@
 apiVersion: stork.libopenstorage.org/v1alpha1
 kind: Migration
 metadata:
-  name: migrate01 #update this name!
+  name: migrate12 #update this name!
   namespace: portworx
 spec:
-  clusterPair: cluster02
+  clusterPair: stage
   includeResources: true
   startApplications: true
   namespaces:
