@@ -8,6 +8,6 @@ spec:
   includeResources: true
   startApplications: true
   namespaces:
-    - student1 # update this namespace!
+    - student12 # update this namespace!
   #adminClusterPair: cluster02
   purgeDeletedResources: false
