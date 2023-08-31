@@ -8,6 +8,8 @@
 ~$ az aks get-credentials --resource-group ccrow-uswest-rg --name ccrow-uswest-aks02
 ~$ az ad sp create-for-rbac --role=ccrow-portworx-cloud-drive --scopes="/subscriptions/536a0a78-c106-4cf1-b62f-f02d84260245/resourceGroups/MC_ccrow-uswest-rg_ccrow-uswest-aks01_westus"
 ~$ az ad sp create-for-rbac --role=ccrow-portworx-cloud-drive --scopes="/subscriptions/536a0a78-c106-4cf1-b62f-f02d84260245/resourceGroups/MC_ccrow-uswest-rg_ccrow-uswest-aks02_westus"
+~$ az aks disable-addons -a monitoring -n ccrow-uswest-aks01 -g ccrow-uswest-rg
+~$ az aks disable-addons -a monitoring -n ccrow-uswest-aks02 -g ccrow-uswest-rg
 
 
 # Record the output of the above create-for-rbac commands, we will use the info to populate kubernetes secrets
